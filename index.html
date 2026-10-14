@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BookNest | Find your next great read</title>
+  <meta name="description" content="BookNest helps you discover new books, save the ones you want to read, and keep track of everything you've read.">
+  <script src="script/boot.js"></script>
+  <script type="module" src="script/home.js"></script>
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="style/small.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <noscript><p class="system-banner">BookNest needs JavaScript to load books. Please turn it on and reload.</p></noscript>
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="logo" href="index.html">
+        <img src="images/favicon.svg" alt="" width="32" height="32">
+        <span>BookNest</span>
+      </a>
+      <div class="header-actions">
+        <button class="icon-btn theme-toggle" id="theme-toggle" type="button" aria-pressed="false" aria-label="Dark mode">
+          <svg class="icon icon-moon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" fill="currentColor"/></svg>
+          <svg class="icon icon-sun" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9 7 7M17 17l2.1 2.1M4.9 19.1 7 17M17 7l2.1-2.1" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
+        </button>
+        <button class="icon-btn menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Menu">
+          <svg class="icon icon-open" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><path d="M4 6.5h16M4 12h16M4 17.5h16" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" fill="none"/></svg>
+          <svg class="icon icon-close" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" fill="none"/></svg>
+        </button>
+      </div>
+      <nav id="site-nav" class="site-nav" aria-label="Main">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="explore.html">Explore</a></li>
+          <li><a href="connect.html" data-auth-link>Connect</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="container hero__inner">
+        <div class="hero__text">
+          <p class="eyebrow">Your cozy corner for books</p>
+          <h1 id="hero-title">Find your next <em>great read</em></h1>
+          <p class="hero__lead">Search millions of books, save the ones you love, and keep track of everything you read.</p>
+          <form id="search-form" class="search" role="search" novalidate>
+            <label for="search-input" class="visually-hidden">Search books by title, author or topic</label>
+            <input id="search-input" name="q" type="search" placeholder="Try “Dune” or “Chimamanda”" autocomplete="off" maxlength="100">
+            <button type="submit" class="btn btn--primary">Search</button>
+          </form>
+          <p id="search-error" class="form-error" role="alert" hidden></p>
+        </div>
+        <svg class="hero__art" viewBox="0 0 220 200" aria-hidden="true" focusable="false">
+          <rect x="30" y="140" width="160" height="22" rx="4" fill="#b4492d"/>
+          <rect x="45" y="112" width="140" height="22" rx="4" fill="#4f7355"/>
+          <rect x="25" y="84" width="150" height="22" rx="4" fill="#c9871a"/>
+          <rect x="55" y="56" width="120" height="22" rx="4" fill="#8f3720"/>
+          <path d="M110 50c-10-22-40-26-58-18v18c18-8 48-4 58 18 10-22 40-26 58-18V32c-18-8-48-4-58 18z" fill="#fffdf8" stroke="#2f2118" stroke-width="3" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </section>
+
+    <section class="container section" aria-labelledby="genres-title">
+      <h2 id="genres-title">Browse by genre</h2>
+      <ul id="genre-list" class="chips">
+        <li><button class="chip" type="button" data-subject="fiction" aria-pressed="true">Fiction</button></li>
+        <li><button class="chip" type="button" data-subject="fantasy" aria-pressed="false">Fantasy</button></li>
+        <li><button class="chip" type="button" data-subject="history" aria-pressed="false">History</button></li>
+        <li><button class="chip" type="button" data-subject="programming" aria-pressed="false">Programming</button></li>
+      </ul>
+    </section>
+
+    <section class="container section" aria-labelledby="results-title">
+      <div class="section__head">
+        <h2 id="results-title">Popular in Fiction</h2>
+        <p id="results-count" class="muted" role="status"></p>
+      </div>
+      <ul id="results" class="book-grid" aria-busy="true"></ul>
+      <div class="center">
+        <button id="load-more" class="btn btn--secondary" type="button" hidden>Load more books</button>
+      </div>
+    </section>
+
+    <section class="container section" aria-labelledby="how-title">
+      <h2 id="how-title">How BookNest works</h2>
+      <ol class="steps">
+        <li>
+          <h3>Search</h3>
+          <p>Look up a title, author or topic, or browse a genre to see what's popular.</p>
+        </li>
+        <li>
+          <h3>Explore</h3>
+          <p>Follow your favourite topics for a feed made for you, and save books to your shelf.</p>
+        </li>
+        <li>
+          <h3>Connect</h3>
+          <p>Create an account to keep your profile and topics together.</p>
+        </li>
+      </ol>
+    </section>
+
+    <section class="container section" aria-labelledby="cta-title">
+      <div class="cta">
+        <div>
+          <h2 id="cta-title">Make BookNest yours</h2>
+          <p class="muted">Pick the topics you love and get a feed built around them, then create a free account.</p>
+        </div>
+        <div class="cta__actions">
+          <a class="btn btn--primary" href="explore.html">Explore topics</a>
+          <a class="btn btn--secondary" href="connect.html#signup">Create account</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  
+<footer class="site-footer">
+  <div class="container footer__inner">
+    <div class="footer__brand">
+      <a class="logo footer__logo" href="index.html">
+        <img src="images/favicon.svg" alt="" width="32" height="32">
+        <span>BookNest</span>
+      </a>
+      <p>
+        Your cozy corner for books.
+        Discover new stories, find your next
+        favourite, and enjoy your reading journey.
+      </p>
+    </div>
+
+    <nav class="footer__nav" aria-label="Footer navigation">
+      <h2>Explore</h2>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="explore.html">Explore books</a></li>
+        <li><a href="connect.html">Connect</a></li>
+      </ul>
+    </nav>
+
+    <div class="footer__note">
+      <h2>Happy reading!</h2>
+      <p>Every great journey begins with a book.</p>
+    </div>
+  </div>
+
+  <div class="container footer__bottom">
+    <p>&copy; 2026 BookNest. Made for the love of reading.</p>
+    <p>Book data from <a href="https://openlibrary.org" rel="noopener noreferrer">Open Library</a>.</p>
+  </div>
+</footer>
+
+   
+  <dialog id="book-dialog" class="dialog" aria-labelledby="dialog-title">
+    <div class="dialog__inner">
+      <button class="icon-btn dialog__close" id="dialog-close" type="button" aria-label="Close book details">
+        <svg class="icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" fill="none"/></svg>
+      </button>
+      <div id="dialog-body"></div>
+    </div>
+  </dialog>
+
+  <div id="toast-region" class="toast-region" aria-live="polite" aria-atomic="false"></div>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Explore | BookNest</title>
+  <meta name="description" content="Follow the topics you love to get a feed of books made for you, and keep your saved books on your BookNest shelf.">
+  <meta name="theme-color" content="#b4492d">
+  <script src="script/boot.js"></script>
+  <script type="module" src="script/explore.js"></script>
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="style/small.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <noscript><p class="system-banner">BookNest needs JavaScript to load books. Please turn it on and reload.</p></noscript>
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="logo" href="index.html">
+        <img src="images/favicon.svg" alt="" width="32" height="32">
+        <span>BookNest</span>
+      </a>
+      <div class="header-actions">
+        <button class="icon-btn theme-toggle" id="theme-toggle" type="button" aria-pressed="false" aria-label="Dark mode">
+          <svg class="icon icon-moon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" fill="currentColor"/></svg>
+          <svg class="icon icon-sun" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9 7 7M17 17l2.1 2.1M4.9 19.1 7 17M17 7l2.1-2.1" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
+        </button>
+        <button class="icon-btn menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Menu">
+          <svg class="icon icon-open" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><path d="M4 6.5h16M4 12h16M4 17.5h16" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" fill="none"/></svg>
+          <svg class="icon icon-close" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" fill="none"/></svg>
+        </button>
+      </div>
+      <nav id="site-nav" class="site-nav" aria-label="Main">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="explore.html">Explore</a></li>
+          <li><a href="connect.html" data-auth-link>Connect</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="container page-head">
+      <h1>Explore</h1>
+      <p class="muted">Pick the topics you love and we'll line up books for you. Save the ones you like to your shelf.</p>
+    </section>
+
+    <section class="container" aria-labelledby="topics-title">
+      <h2 id="topics-title">Your topics</h2>
+      <p id="topics-hint" class="muted">Choose as many as you like. Your picks are remembered on this device.</p>
+      <ul id="interest-chips" class="chips" aria-describedby="topics-hint"></ul>
+    </section>
+
+    <section class="container section" aria-labelledby="library-title">
+      <h2 id="library-title" class="visually-hidden">Your books</h2>
+      <div id="view-switch" class="chips" role="group" aria-label="Choose a view">
+        <button class="chip" type="button" data-view="feed" aria-pressed="true">For you</button>
+        <button class="chip" type="button" data-view="shelf" aria-pressed="false">My shelf <span class="chip__count" data-shelf-count></span></button>
+      </div>
+
+      <div id="feed-panel">
+        <div id="feed-empty" class="message">
+          <h3>Pick a topic to get started</h3>
+          <p class="muted">Choose one or more topics above and a row of books for each will appear here.</p>
+        </div>
+        <div id="feed"></div>
+      </div>
+
+      <div id="shelf-panel" hidden>
+        <h3 class="visually-hidden">Reading stats</h3>
+        <dl id="stats" class="stats"></dl>
+        <div id="shelf-filters" class="chips shelf-filters" role="group" aria-label="Filter by shelf">
+          <button class="chip" type="button" data-shelf="all" aria-pressed="true">All <span class="chip__count" data-count></span></button>
+          <button class="chip" type="button" data-shelf="want" aria-pressed="false">Want to Read <span class="chip__count" data-count></span></button>
+          <button class="chip" type="button" data-shelf="reading" aria-pressed="false">Reading <span class="chip__count" data-count></span></button>
+          <button class="chip" type="button" data-shelf="finished" aria-pressed="false">Finished <span class="chip__count" data-count></span></button>
+        </div>
+        <h3 id="shelf-title" class="shelf-title">All books</h3>
+        <ul id="shelf-grid" class="book-grid"></ul>
+      </div>
+    </section>
+  </main>
+
+  
+<footer class="site-footer">
+  <div class="container footer__inner">
+    <div class="footer__brand">
+      <a class="logo footer__logo" href="index.html">
+        <img src="images/favicon.svg" alt="" width="32" height="32">
+        <span>BookNest</span>
+      </a>
+      <p>
+        Your cozy corner for books.
+        Discover new stories, find your next
+        favourite, and enjoy your reading journey.
+      </p>
+    </div>
+
+    <nav class="footer__nav" aria-label="Footer navigation">
+      <h2>Explore</h2>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="explore.html">Explore books</a></li>
+        <li><a href="connect.html">Connect</a></li>
+      </ul>
+    </nav>
+
+    <div class="footer__note">
+      <h2>Happy reading!</h2>
+      <p>Every great journey begins with a book.</p>
+    </div>
+  </div>
+
+  <div class="container footer__bottom">
+    <p>&copy; 2026 BookNest. Made for the love of reading.</p>
+    <p>Book data from <a href="https://openlibrary.org" rel="noopener noreferrer">Open Library</a>.</p>
+  </div>
+</footer>
+  <dialog id="book-dialog" class="dialog" aria-labelledby="dialog-title">
+    <div class="dialog__inner">
+      <button class="icon-btn dialog__close" id="dialog-close" type="button" aria-label="Close book details">
+        <svg class="icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" fill="none"/></svg>
+      </button>
+      <div id="dialog-body"></div>
+    </div>
+  </dialog>
+
+  <div id="toast-region" class="toast-region" aria-live="polite" aria-atomic="false"></div>
+</body>
+</html>

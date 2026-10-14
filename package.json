@@ -1,0 +1,14 @@
+{
+  "name": "booknest",
+  "version": "1.0.0",
+  "description": "Track the books you read and discover new ones. HTML, CSS and vanilla JavaScript.",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "lint": "eslint script"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.0.0",
+    "eslint": "^9.0.0"
+  }
+}

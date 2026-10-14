@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Connect | BookNest</title>
+  <meta name="description" content="Sign in or create a free BookNest account to keep your reading profile and favourite topics together.">
+  <script src="script/boot.js"></script>
+  <script type="module" src="script/connect-page.js"></script>
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="style/small.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <noscript><p class="system-banner">BookNest needs JavaScript to sign you in. Please turn it on and reload.</p></noscript>
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="logo" href="index.html">
+        <img src="images/favicon.svg" alt="" width="32" height="32">
+        <span>BookNest</span>
+      </a>
+      <div class="header-actions">
+        <button class="icon-btn theme-toggle" id="theme-toggle" type="button" aria-pressed="false" aria-label="Dark mode">
+          <svg class="icon icon-moon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" fill="currentColor"/></svg>
+          <svg class="icon icon-sun" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9 7 7M17 17l2.1 2.1M4.9 19.1 7 17M17 7l2.1-2.1" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
+        </button>
+        <button class="icon-btn menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Menu">
+          <svg class="icon icon-open" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><path d="M4 6.5h16M4 12h16M4 17.5h16" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" fill="none"/></svg>
+          <svg class="icon icon-close" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" fill="none"/></svg>
+        </button>
+      </div>
+      <nav id="site-nav" class="site-nav" aria-label="Main">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="explore.html">Explore</a></li>
+          <li><a href="connect.html" data-auth-link>Connect</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="container page-head">
+      <h1>Connect</h1>
+      <p class="muted">Join the nest to keep your reading profile and favourite topics in one place.</p>
+    </section>
+
+    <!-- Shown when nobody is signed in -->
+    <div id="signed-out" class="container auth-layout">
+      <section class="panel auth-card" aria-labelledby="auth-title">
+        <h2 id="auth-title" tabindex="-1">Welcome back</h2>
+
+        <div class="chips" role="group" aria-label="Choose sign in or create account">
+          <button class="chip" type="button" data-mode="signin" aria-pressed="true">Sign in</button>
+          <button class="chip" type="button" data-mode="signup" aria-pressed="false">Create account</button>
+        </div>
+
+        <form id="signin-form" novalidate>
+          <p class="form-error" role="alert" hidden></p>
+
+          <div class="field">
+            <label for="signin-email">Email</label>
+            <input id="signin-email" name="email" type="email" autocomplete="email" data-rule="email" required>
+            <p class="field-error" id="signin-email-error" hidden></p>
+          </div>
+
+          <div class="field">
+            <label for="signin-password">Password</label>
+            <div class="password-wrap">
+              <input id="signin-password" name="password" type="password" autocomplete="current-password" data-rule="required" required>
+              <button class="btn btn--link" type="button" data-toggle-password="signin-password" aria-pressed="false">Show</button>
+            </div>
+            <p class="field-error" id="signin-password-error" hidden></p>
+          </div>
+
+          <button class="btn btn--primary btn--block" type="submit">Sign in</button>
+        </form>
+
+        <form id="signup-form" novalidate hidden>
+          <p class="form-error" role="alert" hidden></p>
+
+          <div class="field">
+            <label for="signup-name">Your name</label>
+            <input id="signup-name" name="name" type="text" autocomplete="name" data-rule="name" required>
+            <p class="field-error" id="signup-name-error" hidden></p>
+          </div>
+
+          <div class="field">
+            <label for="signup-email">Email</label>
+            <input id="signup-email" name="email" type="email" autocomplete="email" data-rule="email" required>
+            <p class="field-error" id="signup-email-error" hidden></p>
+          </div>
+
+          <div class="field">
+            <label for="signup-password">Password</label>
+            <div class="password-wrap">
+              <input id="signup-password" name="password" type="password" autocomplete="new-password" data-rule="password" data-describedby="signup-password-hint" aria-describedby="signup-password-hint" required>
+              <button class="btn btn--link" type="button" data-toggle-password="signup-password" aria-pressed="false">Show</button>
+            </div>
+            <p class="hint" id="signup-password-hint">Use at least 8 characters.</p>
+            <p class="field-error" id="signup-password-error" hidden></p>
+          </div>
+
+          <fieldset class="interests">
+            <legend>What do you like to read? <span class="muted">(optional)</span></legend>
+            <div class="check-grid" data-interests="signup"></div>
+          </fieldset>
+
+          <button class="btn btn--primary btn--block" type="submit">Create account</button>
+        </form>
+
+        <p class="hint auth-note">This is a demo: accounts are saved only in this browser and never sent anywhere.</p>
+      </section>
+
+      <aside class="benefits" aria-labelledby="benefits-title">
+        <h2 id="benefits-title">Why join?</h2>
+        <ul>
+          <li><strong>A feed made for you.</strong> Follow topics and get rows of books to match.</li>
+          <li><strong>Your shelf, your rules.</strong> Sort books into Want to Read, Reading and Finished.</li>
+          <li><strong>Ratings and notes.</strong> Remember what you thought of every book.</li>
+          <li><strong>Always ready.</strong> Light and dark themes, on phone or desktop.</li>
+        </ul>
+      </aside>
+    </div>
+
+    <!-- Shown once signed in -->
+    <section id="signed-in" class="container" aria-labelledby="welcome-title" hidden>
+      <div class="panel profile">
+        <div class="profile__head">
+          <span id="avatar" class="avatar" aria-hidden="true"></span>
+          <div>
+            <h2 id="welcome-title" tabindex="-1">Your profile</h2>
+            <p id="profile-email" class="muted"></p>
+          </div>
+        </div>
+
+        <h3>Your reading so far</h3>
+        <dl id="profile-stats" class="stats"></dl>
+
+        <form id="profile-form" novalidate>
+          <fieldset class="interests">
+            <legend>Your favourite topics</legend>
+            <div class="check-grid" data-interests="profile"></div>
+          </fieldset>
+          <div class="profile__actions">
+            <button class="btn btn--primary" type="submit">Save topics</button>
+            <a class="btn btn--secondary" href="explore.html">See my feed</a>
+            <a class="btn btn--secondary" href="explore.html#shelf">Open my shelf</a>
+            <button class="btn btn--link" id="signout" type="button">Sign out</button>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  
+<footer class="site-footer">
+  <div class="container footer__inner">
+    <div class="footer__brand">
+      <a class="logo footer__logo" href="index.html">
+        <img src="images/favicon.svg" alt="" width="32" height="32">
+        <span>BookNest</span>
+      </a>
+      <p>
+        Your cozy corner for books.
+        Discover new stories, find your next
+        favourite, and enjoy your reading journey.
+      </p>
+    </div>
+
+    <nav class="footer__nav" aria-label="Footer navigation">
+      <h2>Explore</h2>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="explore.html">Explore books</a></li>
+        <li><a href="connect.html">Connect</a></li>
+      </ul>
+    </nav>
+
+    <div class="footer__note">
+      <h2>Happy reading!</h2>
+      <p>Every great journey begins with a book.</p>
+    </div>
+  </div>
+
+  <div class="container footer__bottom">
+    <p>&copy; 2026 BookNest. Made for the love of reading.</p>
+    <p>Book data from <a href="https://openlibrary.org" rel="noopener noreferrer">Open Library</a>.</p>
+  </div>
+</footer>
+  <div id="toast-region" class="toast-region" aria-live="polite" aria-atomic="false"></div>
+</body>
+</html>
